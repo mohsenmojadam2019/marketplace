@@ -1,0 +1,15 @@
+{
+    "name": "shab/marketplace",
+    "autoload": {
+        "psr-4": {
+            "Shab\\Marketplace\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mojadam",
+            "email": "mohsenmojadam2019@gmail.com"
+        }
+    ],
+    "require": {}
+}
