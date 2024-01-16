@@ -3,18 +3,19 @@
 namespace marketplace\src\Database\Factories;
 
 use Illuminate\Support\Str;
+use marketplace\src\Models\Category;
 use Webkul\CartRule\Models\CartRule;
 use Webkul\CartRule\Models\CartRuleCoupon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class HelloFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Hello::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +25,10 @@ class HelloFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => 0,
+            'name' => $this->faker->word,
+            'description' => $this->faker->sentence,
+            'is_active' => $this->faker->boolean,
+            'parent_id' => null,
         ];
     }
 }
