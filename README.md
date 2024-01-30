@@ -1,6 +1,12 @@
-1-  composer require shab/marketplace:1.0.0
+# bProject
 
 
-2-  composer require spatie/laravel-medialibrary:^11.0.0
+### نصب
 
-good luck
+```shell
+composer require shab/marketplace
+```
+
+```shell
+php artisan vendor:publish --tag=marketplace --force
+```
