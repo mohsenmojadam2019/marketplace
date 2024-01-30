@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Http\Resources;
+namespace Shab\Marketplace\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Http\Controllers;
+namespace Shab\Marketplace\Http\Controllers;
 
 use Illuminate\Http\Request;
 use marketplace\src\Http\Requests\CategoryRequest;

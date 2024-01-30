@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Traits;
+namespace Shab\Marketplace\Traits;
 
 trait NotificationTrait
 {

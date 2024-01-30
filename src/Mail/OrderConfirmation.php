@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Mail;
+namespace Shab\Marketplace\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

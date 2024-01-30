@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Database\Factories;
+namespace Shab\Marketplace\Database\Factories;
 
 use Illuminate\Support\Str;
-use marketplace\src\Models\Order;
+use Shab\Marketplace\Models\Order;
 use Webkul\CartRule\Models\CartRule;
 use Webkul\CartRule\Models\CartRuleCoupon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,7 +28,7 @@ class OrderFactory extends Factory
             'title' => $this->faker->word,
             'price' => $this->faker->randomFloat(2, 10, 1000),
             'product_id' => function () {
-                return \marketplace\src\Models\Product::factory()->create()->id;
+                return \Shab\Marketplace\Models\Product::factory()->create()->id;
             },
             'quantity' => $this->faker->numberBetween(1, 10),
             'shipping_address' => $this->faker->address,

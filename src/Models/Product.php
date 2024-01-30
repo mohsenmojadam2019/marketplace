@@ -1,11 +1,11 @@
 <?php
 
-namespace marketplace\src\Models;
+namespace Shab\Marketplace\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use marketplace\src\Database\Factories\ProductFactory;
+use Shab\Marketplace\Database\Factories\ProductFactory;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 

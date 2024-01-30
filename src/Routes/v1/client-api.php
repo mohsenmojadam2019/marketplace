@@ -3,8 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
-use marketplace\src\Http\Controllers\ProductController;
-use marketplace\src\Http\Controllers\CategoryController;
+use Shab\Marketplace\Http\Controllers\ProductController;
+use Shab\Marketplace\Http\Controllers\CategoryController;
 
 Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);

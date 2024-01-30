@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Database\Seeders;
+namespace Shab\Marketplace\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 

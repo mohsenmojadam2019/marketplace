@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Policies;
+namespace Shab\Marketplace\Http\Policies;
 
 use App\Models\User;
-use marketplace\src\Models\Product;
+use Shab\Marketplace\Models\Product;
 
 class ProductPolicy
 {

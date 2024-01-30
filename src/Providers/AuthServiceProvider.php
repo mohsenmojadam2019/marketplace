@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Providers;
+namespace Shab\Marketplace\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use marketplace\src\Models\Product;
+use Shab\Marketplace\Models\Product;
 use marketplace\src\Http\Policies\ProductPolicy;
 
 class AuthServiceProvider extends ServiceProvider

@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Observers;
+namespace Shab\Marketplace\Observers;
 
-use marketplace\src\Models\Order;
-use marketplace\src\Traits\NotificationTrait;
+use Shab\Marketplace\Models\Order;
+use Shab\Marketplace\Traits\NotificationTrait;
 
 class OrderObserver
 {

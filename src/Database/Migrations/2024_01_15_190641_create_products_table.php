@@ -18,12 +18,9 @@ return new class extends Migration
             $table->text('description');
             $table->integer('quantity');
             $table->boolean('is_available');
-            $table->string('manufacturer');
-            $table->decimal('weight', 5, 2);
             $table->decimal('shipping_cost', 8, 2)->nullable();
             $table->string('dimensions');
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('category_id');
             $table->index('title');
             $table->index('manufacturer');
             $table->timestamps();

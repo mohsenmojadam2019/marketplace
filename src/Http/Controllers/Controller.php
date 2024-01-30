@@ -1,6 +1,6 @@
 <?php
 
-namespace marketplace\src\Http\Controllers;
+namespace Shab\Marketplace\Http\Controllers;
 
 use App\Traits\ApiResponseTrait;
 use Illuminate\Foundation\Bus\DispatchesJobs;

@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Database\Factories;
+namespace Shab\Marketplace\Database\Factories;
 
 use Illuminate\Support\Str;
-use marketplace\src\Models\Category;
+use Shab\Marketplace\Models\Category;
 use Webkul\CartRule\Models\CartRule;
 use Webkul\CartRule\Models\CartRuleCoupon;
 use Illuminate\Database\Eloquent\Factories\Factory;

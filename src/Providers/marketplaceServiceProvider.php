@@ -1,16 +1,16 @@
 <?php
 
-namespace marketplace\src\Providers;
+namespace Shab\Marketplace\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use marketplace\src\Repositories\CategoryRepository;
 use marketplace\src\Repositories\ProductRepository;
 use marketplace\src\Repositories\OrderRepository;
-use marketplace\src\Contracts\CategoryInterface;
-use marketplace\src\Contracts\ProductInterface;
-use marketplace\src\Contracts\OrderInterface;
-use marketplace\src\Models\Order;
-use marketplace\src\Observers\OrderObserver;
+use Shab\Marketplace\Contracts\CategoryInterface;
+use Shab\Marketplace\Contracts\ProductInterface;
+use Shab\Marketplace\Contracts\OrderInterface;
+use Shab\Marketplace\Models\Order;
+use Shab\Marketplace\Observers\OrderObserver;
 
 class marketplaceServiceProvider extends ServiceProvider
 {

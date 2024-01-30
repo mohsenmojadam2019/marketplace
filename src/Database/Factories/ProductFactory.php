@@ -1,9 +1,9 @@
 <?php
 
-namespace marketplace\src\Database\Factories;
+namespace Shab\Marketplace\Database\Factories;
 
 use Illuminate\Support\Str;
-use marketplace\src\Models\Product;
+use Shab\Marketplace\Models\Product;
 use Webkul\CartRule\Models\CartRule;
 use Webkul\CartRule\Models\CartRuleCoupon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -34,7 +34,7 @@ class ProductFactory extends Factory
             'weight' => $this->faker->randomFloat(2, 0.1, 50),
             'dimensions' => $this->faker->randomNumber(2) . 'x' . $this->faker->randomNumber(2) . 'x' . $this->faker->randomNumber(2),
             'category_id' => function () {
-                return \marketplace\src\Models\Category::factory()->create()->id;
+                return \Shab\Marketplace\Models\Category::factory()->create()->id;
             },
         ];
     }

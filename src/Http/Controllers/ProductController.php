@@ -1,10 +1,10 @@
 <?php
 
-namespace marketplace\src\Http\Controllers;
+namespace Shab\Marketplace\Http\Controllers;
 
 use Illuminate\Http\Request;
-use marketplace\src\Http\Resources\ProductResource;
-use marketplace\src\Models\Product;
+use Shab\Marketplace\Http\Resources\ProductResource;
+use Shab\Marketplace\Models\Product;
 use marketplace\src\Http\Requests\ProductRequest;
 
 class ProductController extends Controller

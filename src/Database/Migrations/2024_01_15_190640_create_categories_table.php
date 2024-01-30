@@ -13,13 +13,8 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('set null');
+            $table->string('name',130);
             $table->index('name');
-            $table->index('parent_id');
             $table->timestamps();
         });
     }

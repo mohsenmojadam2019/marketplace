@@ -1,11 +1,11 @@
 <?php
 
-namespace marketplace\src\Models;
+namespace Shab\Marketplace\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use marketplace\src\Database\Factories\CategoryFactory;
+use Shab\Marketplace\Database\Factories\CategoryFactory;
 
 class Category extends Model
 {
