@@ -1,20 +1,23 @@
 <?php
 
-namespace Shab\Marketplace\Models;
+namespace marketplace\src\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Shab\Marketplace\Database\Factories\ProductFactory;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use marketplace\src\Database\Factories\ProductFactory;
+use Spatie\MediaLibrary\HasMedia;
+use marketplace\src\Traits\Relations\ProductRelationTrait;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Product extends Model implements HasMedia
 {
     use HasFactory;
-    use HasMediaTrait;
+    use InteractsWithMedia;
+    use ProductRelationTrait;
 
-    protected $fillable = ["title", "price", "description", "quantity", "is_available", "manufacturer","weight","dimensions","shipping_cost"];
+    protected $fillable = ["title", "price", "description", "quantity", "is_available","category_id"];
 
     public function registerMediaCollections(): void
     {
@@ -22,9 +25,12 @@ class Product extends Model implements HasMedia
             ->useDisk('public')
             ->singleFile();
     }
-    public function category():Category
+
+    public function registerMediaConversions(Media $media = null): void
     {
-        return $this->belongsTo(Category::class);
+        $this->addMediaConversion('thumb')
+            ->width(200)
+            ->height(200);
     }
 
     protected static function newFactory(): Factory

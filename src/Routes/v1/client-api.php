@@ -1,32 +1,38 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthController;
-use Shab\Marketplace\Http\Controllers\ProductController;
-use Shab\Marketplace\Http\Controllers\CategoryController;
+use marketplace\src\Http\Controllers\AuthController;
+use marketplace\src\Http\Controllers\CategoryController;
+use marketplace\src\Http\Controllers\OrderController;
+use marketplace\src\Http\Controllers\ProductController;
 
-Route::prefix('categories')->group(function () {
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+});
+
+Route::group(['prefix' => 'categories', 'middleware' => 'auth:api'], function () {
     Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/{categoryId}', [CategoryController::class, 'show']);
-    Route::post('/search', [CategoryController::class, 'search']);
-    Route::get('/{categoryId}/products', [CategoryController::class, 'categoryProducts']);
+    Route::get('/{category}', [CategoryController::class, 'show']);
     Route::post('/', [CategoryController::class, 'store']);
-    Route::put('/{categoryId}', [CategoryController::class, 'update']);
-    Route::delete('/{categoryId}', [CategoryController::class, 'destroy']);
+    Route::put('/{category}', [CategoryController::class, 'update']);
+    Route::delete('/{category}', [CategoryController::class, 'destroy']);
 });
 
-Route::prefix('products')->group(function () {
+Route::group(['prefix' => 'products', 'middleware' => 'auth:api'], function () {
     Route::get('/', [ProductController::class, 'index']);
-    Route::get('/{productId}', [ProductController::class, 'show']);
-    Route::post('/search', [ProductController::class, 'search']);
-    Route::post('/filter-by-max-price', [ProductController::class, 'filterByMaxPrice']);
-    Route::get('/sort-by-min-price', [ProductController::class, 'sortByMinPrice']);
-    Route::get('/user/{userId}', [ProductController::class, 'userProducts']);
-    Route::post('/{productId}/store', [ProductController::class, 'store']);
-    Route::post('/{productId}/update', [ProductController::class, 'update']);
-    Route::delete('/{productId}/delete', [ProductController::class, 'delete']);
-
+    Route::get('/{product}', [ProductController::class, 'show']);
+    Route::post('/', [ProductController::class, 'store']);
+    Route::put('/{product}', [ProductController::class, 'update']);
+    Route::delete('/{product}', [ProductController::class, 'destroy']);
 });
 
-Route::apiResource('orders', CategoryController::class);
+Route::group(['prefix' => 'orders', 'middleware' => 'auth:api'], function () {
+    Route::get('/', [OrderController::class, 'index']);
+    Route::get('/{order}', [OrderController::class, 'show']);
+    Route::post('/', [OrderController::class, 'store']);
+    Route::put('/{order}', [OrderController::class, 'update']);
+    Route::delete('/{order}', [OrderController::class, 'destroy']);
+});

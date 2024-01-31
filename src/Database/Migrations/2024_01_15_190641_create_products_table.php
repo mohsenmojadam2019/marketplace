@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('price', 10, 2);
+            $table->bigInteger('price');
             $table->text('description');
             $table->integer('quantity');
             $table->boolean('is_available');
-            $table->decimal('shipping_cost', 8, 2)->nullable();
-            $table->string('dimensions');
-            $table->foreignId('category_id');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->index('title');
-            $table->index('manufacturer');
+            $table->index('category_id');
+            $table->index('is_available');
             $table->timestamps();
         });
     }

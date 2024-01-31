@@ -1,6 +1,6 @@
 <?php
 
-namespace Shab\Marketplace\Http\Requests;
+namespace marketplace\src\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,14 +22,11 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:130|unique:products,title',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'quantity' => 'required|integer|min:0',
             'is_available' => 'boolean',
-            'manufacturer' => 'nullable|string|max:255',
-            'weight' => 'nullable|numeric|min:0',
-            'dimensions' => 'nullable|string',
             'category_id' => 'required|exists:categories,id',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'shipping_cost' => 'nullable|numeric|min:0',

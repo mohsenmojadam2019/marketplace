@@ -1,9 +1,9 @@
 <?php
 
-namespace Shab\Marketplace\Database\Factories;
+namespace marketplace\src\Database\Factories;
 
 use Illuminate\Support\Str;
-use Shab\Marketplace\Models\Category;
+use marketplace\src\Models\Category;
 use Webkul\CartRule\Models\CartRule;
 use Webkul\CartRule\Models\CartRuleCoupon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,9 +26,6 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'is_active' => $this->faker->boolean,
-            'parent_id' => null,
         ];
     }
 }

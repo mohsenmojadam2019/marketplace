@@ -1,37 +1,20 @@
 <?php
 
-namespace Shab\Marketplace\Models;
+namespace marketplace\src\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Shab\Marketplace\Database\Factories\CategoryFactory;
+use marketplace\src\Database\Factories\CategoryFactory;
+use marketplace\src\Traits\Relations\CategoryRelationTrait;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory,CategoryRelationTrait;
 
     protected $fillable = [
-        'name',
-        'description',
-        'is_active',
-        'parent_id',
+        'name'
     ];
-
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function children()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
 
     protected static function newFactory(): Factory
     {

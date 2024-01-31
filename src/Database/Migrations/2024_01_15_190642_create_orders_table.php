@@ -16,14 +16,15 @@ return new class extends Migration
             $table->string('title');
             $table->decimal('price', 10, 2);
             $table->unsignedBigInteger('product_id');
-            $table->integer('quantity');
-            $table->string('shipping_address');
-            $table->string('delivery_option')->after('user_id')->nullable();
-            $table->decimal('total_price', 8, 2)->after('delivery_option')->nullable();
-            $table->unsignedBigInteger('user_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->tinyInteger('delivery_type')->nullable();
+            $table->decimal('total_price', 8, 2)->nullable();
             $table->index('title');
+            $table->index('user_id');
+            $table->index('product_id');
             $table->timestamps();
         });
     }

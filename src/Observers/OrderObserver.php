@@ -1,21 +1,22 @@
 <?php
 
-namespace Shab\Marketplace\Observers;
+namespace marketplace\src\Observers;
 
-use Shab\Marketplace\Models\Order;
-use Shab\Marketplace\Traits\NotificationTrait;
+use Illuminate\Support\Facades\Log;
+use marketplace\src\Models\Order;
+use marketplace\src\Notification\OrderNotification;
 
 class OrderObserver
 {
-    use NotificationTrait;
-
     /**
      * Handle the Order "created" event.
      */
 
     public function created(Order $order)
     {
-        $this->sendOrderConfirmationEmail($order->user, $order);
+      //  info(json_encode($order));
+        $order->user->notify(new OrderNotification($order));
     }
+
 
 }

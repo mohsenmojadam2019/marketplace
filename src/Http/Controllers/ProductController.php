@@ -1,93 +1,57 @@
 <?php
 
-namespace Shab\Marketplace\Http\Controllers;
+namespace marketplace\src\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Shab\Marketplace\Http\Resources\ProductResource;
-use Shab\Marketplace\Models\Product;
+use Illuminate\Validation\ValidationException;
+use marketplace\src\Http\Resources\ProductResource;
+use marketplace\src\Models\Product;
 use marketplace\src\Http\Requests\ProductRequest;
+use marketplace\src\Http\Requests\ProductListRequest;
+use Symfony\Component\HttpFoundation\Response;
+use marketplace\src\Http\Services\ProductService;
 
 class ProductController extends Controller
 {
-    protected $productRepository;
+    protected $productService;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductService $productService)
     {
-        $this->productRepository = $productRepository;
+        $this->productService = $productService;
     }
 
-    public function index()
+    public function index(ProductListRequest $request, ProductService $productService)
     {
-        $products = $this->productRepository->getAllProducts();
-        return ProductResource::collection($products);
+        $products = $productService->getAllProducts($request);
+        return $this->response(ProductResource::collection($products));
     }
 
-    public function show($productId)
+    public function show(Product $product)
     {
-        $product = $this->productRepository->getProductById($productId);
-        return new ProductResource($product);
+        $product = $this->productService->getProduct($product);
+        $this->response(ProductResource::make($product));
     }
 
-    public function search(Request $request)
+    public function store(ProductRequest $request)
     {
-        $keyword = $request->input('keyword');
-        $result = $this->productRepository->searchProducts($keyword);
-        return ProductResource::collection($result);
-    }
-
-    public function filterByMaxPrice(Request $request)
-    {
-        $maxPrice = $request->input('max_price');
-        $result = $this->productRepository->filterByMaxPrice($maxPrice);
-        return ProductResource::collection($result);
-    }
-
-    public function sortByMinPrice()
-    {
-        $result = $this->productRepository->sortByMinPrice();
-        return ProductResource::collection($result);
-    }
-
-    public function userProducts($userId)
-    {
-        $userProducts = $this->productRepository->getUserProducts($userId);
-        return ProductResource::collection($userProducts);
-    }
-
-
-    public function store(ProductRequest $request, $productId)
-    {
-        $this->validateImages($request);
-
         $validatedData = $request->validated();
-
-        $images = $request->file('images');
-        $this->productRepository->storeProductImages($productId, $images);
-
-        return response()->json(['message' => 'Images stored successfully']);
+        $product = $this->productService->createProduct($validatedData);
+        return $this->response(ProductResource::make($product), Response::HTTP_CREATED);
     }
 
-    public function update(ProductRequest $request, $productId)
+    public function update(ProductRequest $request, Product $product)
     {
-        $this->validateImages($request);
-
         $validatedData = $request->validated();
-
-        $images = $request->file('images');
-        $this->productRepository->updateProductImages($productId, $images);
-
-        return response()->json(['message' => 'Images updated successfully']);
+        $this->productService->updateProduct($product, $validatedData);
+        return $this->response(ProductResource::make($product), Response::HTTP_OK);
     }
 
-
-    public function delete($productId)
+    public function destroy(Product $product)
     {
-        $product = $this->productRepository->getProductById($productId);
-
-        $this->authorize('delete', $product);
-
-        $this->productRepository->deleteProduct($productId);
-
-        return response()->json(['message' => 'Product deleted successfully']);
+        if ($this->productService->deleteProduct($product)) {
+            return response()->json(['message' => 'Product deleted successfully'], Response::HTTP_NO_CONTENT);
+        } else {
+            return response()->json(['message' => 'Failed to delete product'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

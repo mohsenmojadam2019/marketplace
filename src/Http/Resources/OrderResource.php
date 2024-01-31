@@ -1,9 +1,10 @@
 <?php
 
-namespace Shab\Marketplace\Http\Resources;
+namespace marketplace\src\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use marketplace\src\Enums\OrderEnum;
 
 class OrderResource extends JsonResource
 {
@@ -14,9 +15,12 @@ class OrderResource extends JsonResource
             'title' => $this->title,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'shipping_address' => $this->shipping_address,
-            'user_id' => $this->user->name,
-            'product' => ProductResource::collection($this->whenLoaded('product')),
+            'delivery_type' => OrderEnum::from($this->delivery_type)->text(),
+            'total_price' => $this->total_price,
+            'user_name' => $this->user->name,
+            'product' => new ProductResource($this->whenLoaded('product')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Shab\Marketplace\Contracts;
+namespace marketplace\src\Contracts;
 
 interface ProductInterface
 {

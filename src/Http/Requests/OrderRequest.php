@@ -1,6 +1,6 @@
 <?php
 
-namespace Shab\Marketplace\Http\Requests;
+namespace marketplace\src\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,9 +26,8 @@ class OrderRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:0',
-            'shipping_address' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
-            'delivery_option' => 'nullable|string',
+            'delivery_type' => 'nullable|integer|in:0,1',
             'total_price' => 'nullable|numeric|min:0',
         ];
     }

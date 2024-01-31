@@ -1,9 +1,9 @@
 <?php
 
-namespace Shab\Marketplace\Http\Resources;
+namespace marketplace\src\Http\Resources;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+
 
 class ProductResource extends JsonResource
 {
@@ -16,12 +16,11 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'quantity' => $this->quantity,
             'is_available' => $this->is_available,
-            'manufacturer' => $this->manufacturer,
-            'weight' => $this->weight,
-            'dimensions' => $this->dimensions,
-            'shipping_cost' => $this->shipping_cost,
             'category' => CategoryResource::collection($this->whenLoaded('category')),
-            'images' => $this->getMediaUrls(),
+            'images' => [
+                'original' => $this->getFirstMediaUrl('images'),
+                'thumb' => $this->getFirstMediaUrl('images', 'thumb'),
+            ],
         ];
     }
 }

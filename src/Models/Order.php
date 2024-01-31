@@ -1,19 +1,19 @@
 <?php
 
-namespace Shab\Marketplace\Models;
+namespace marketplace\src\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Shab\Marketplace\Database\Factories\OrderFactory;
-
+use marketplace\src\Database\Factories\OrderFactory;
+use marketplace\src\Observers\OrderObserver;
+use marketplace\src\Traits\Relations\OrderRelationTrait;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, OrderRelationTrait;
 
-    protected $fillable = ["title", "price", "product_id", "quantity", "shipping_address", "user_id","delivery_option","total_price"];
+    protected $fillable = ["title", "price", "product_id", "quantity", "user_id", "delivery_type", "total_price"];
 
     public function product()
     {
@@ -28,5 +28,10 @@ class Order extends Model
     protected static function newFactory(): Factory
     {
         return OrderFactory::new();
+    }
+
+    protected static function booted()
+    {
+        static::observe(OrderObserver::class);
     }
 }

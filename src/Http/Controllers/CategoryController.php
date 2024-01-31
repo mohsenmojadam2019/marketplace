@@ -1,64 +1,55 @@
 <?php
 
-namespace Shab\Marketplace\Http\Controllers;
+namespace marketplace\src\Http\Controllers;
 
+use App\Http\Resources\Api\V1\Dashboard\LicenseFormResource;
 use Illuminate\Http\Request;
 use marketplace\src\Http\Requests\CategoryRequest;
+use marketplace\src\Models\Category;
+use marketplace\src\Http\Services\CategoryService;
+use marketplace\src\Http\Resources\CategoryResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    protected $categoryRepository;
+    protected $categoryService;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryService $categoryService)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->categoryService = $categoryService;
     }
 
     public function index()
     {
-        $categories = $this->categoryRepository->getAllCategories();
-        return CategoryResource::collection($categories);
+        $categories = $this->categoryService->index();
+        return $this->response(CategoryResource::collection($categories));
     }
 
-    public function show($categoryId)
+    public function show(Category $category)
     {
-        $category = $this->categoryRepository->getCategoryById($categoryId);
-        return new CategoryResource($category);
-    }
-
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $result = $this->categoryRepository->searchCategories($keyword);
-        return CategoryResource::collection($result);
-    }
-
-    public function categoryProducts($categoryId)
-    {
-        $products = $this->categoryRepository->getCategoryProducts($categoryId);
-        return ProductResource::collection($products);
+        $category = $this->categoryService->show($category);
+        $this->response(CategoryResource::make($category->load('products')));
     }
 
     public function store(CategoryRequest $request)
     {
         $data = $request->validated();
-        $category = $this->categoryRepository->createCategory($data);
-
-        return new CategoryResource($category);
+        $category = $this->categoryService->store($data);
+        return $this->response(CategoryResource::make($category), Response::HTTP_ACCEPTED);
     }
 
-    public function update(CategoryRequest $request, $categoryId)
+
+    public function update(CategoryRequest $request, Category $category)
     {
         $data = $request->validated();
-        $category = $this->categoryRepository->updateCategory($categoryId, $data);
+        $this->categoryService->update($category, $data);
 
-        return new CategoryResource($category);
+        return $this->response(CategoryResource::make($category), Response::HTTP_OK);
     }
 
-    public function destroy($categoryId)
+    public function destroy(Category $category)
     {
-        $result = $this->categoryRepository->deleteCategory($categoryId);
-
-        return response()->json(['success' => $result]);
+        $this->categoryService->delete($category);
+        return response()->json(['message' => 'Category deleted successfully', Response::HTTP_NO_CONTENT]);
     }
 }

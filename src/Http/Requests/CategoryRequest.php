@@ -1,6 +1,6 @@
 <?php
 
-namespace Shab\Marketplace\Http\Requests;
+namespace marketplace\src\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,11 +22,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'is_active' => 'boolean',
-            'parent_id' => 'nullable|exists:categories,id',
-
+            'name' => 'required|string|max:130|unique:categories,name'
         ];
     }
 }
