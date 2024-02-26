@@ -27,7 +27,8 @@ class CategoryService implements CategoryInterface
         $category->fill($data);
         $category->save();
 
-        return $category;    }
+        return $category;
+    }
 
     public function delete(Category $category)
     {
