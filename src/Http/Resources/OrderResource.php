@@ -18,7 +18,7 @@ class OrderResource extends JsonResource
             'delivery_type' => OrderEnum::from($this->delivery_type)->text(),
             'total_price' => $this->total_price,
             'user_name' => $this->user->name,
-            'product' => new ProductResource($this->whenLoaded('product')),
+            'product' => ProductResource::collection($this->whenLoaded('product')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

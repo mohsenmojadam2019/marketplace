@@ -14,11 +14,9 @@ use marketplace\src\Http\Services\OrderService;
 
 class OrderController extends Controller
 {
-    protected $orderService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(protected OrderService $orderService)
     {
-        $this->orderService = $orderService;
     }
 
     public function index()

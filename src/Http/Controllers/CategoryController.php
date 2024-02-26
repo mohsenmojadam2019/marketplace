@@ -12,11 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
 {
-    protected $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(protected CategoryService $categoryService)
     {
-        $this->categoryService = $categoryService;
     }
 
     public function index()

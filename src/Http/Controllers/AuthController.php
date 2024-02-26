@@ -16,11 +16,9 @@ use marketplace\src\Http\Requests\RegistrationRequest;
 
 class AuthController extends Controller
 {
-    protected AuthService $authService;
 
-    public function __construct(AuthService $authService)
+    public function __construct(protected AuthService $authService)
     {
-        $this->authService = $authService;
     }
 
     public function register(RegistrationRequest $request): JsonResponse
